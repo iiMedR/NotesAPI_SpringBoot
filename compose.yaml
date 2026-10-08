@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: notesapi_postgres
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - "notesapi-postgres-data:/var/lib/postgresql/data"
+
+volumes:
+  notesapi-postgres-data:
