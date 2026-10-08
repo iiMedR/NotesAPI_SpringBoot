@@ -7,7 +7,8 @@ A Spring Boot learning project for a REST API where users register, sign in with
 - Spring Boot project with Web MVC, JPA, validation, and PostgreSQL dependencies.
 - PostgreSQL configuration using a local `.env` file.
 - User and Note entities with a one-to-many relationship.
-- Authentication, JWT, repositories, and API endpoints are the next steps.
+- Repositories with email lookup and note ownership queries.
+- Authentication, JWT, and API endpoints are the next steps.
 
 ## Local setup
 
