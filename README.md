@@ -8,13 +8,15 @@ A Spring Boot learning project for a REST API where users register, sign in with
 - PostgreSQL configuration using a local `.env` file.
 - User and Note entities with a one-to-many relationship.
 - Repositories with email lookup and note ownership queries.
-- Authentication, JWT, and API endpoints are the next steps.
+- Registration with BCrypt password hashing and login with JWT generation.
+- Public Swagger documentation and invalid-login error handling.
+- JWT request validation and private notes endpoints are the next steps.
 
 ## Local setup
 
 Requires Java 17 or later and PostgreSQL (or Docker for the included Compose configuration).
 
-1. Copy `.env.example` to `.env` and set your local database credentials.
+1. Copy `.env.example` to `.env`, set your local database credentials, and replace `JWT_SECRET` with a random secret of at least 32 bytes.
 2. Run `docker compose up -d` to start PostgreSQL on port 5433.
 3. On Windows, run `.\mvnw.cmd spring-boot:run`.
 
