@@ -3,7 +3,9 @@ package org.example.notesapi.controller;
 import jakarta.validation.Valid;
 import org.example.notesapi.dto.CreateNoteRequest;
 import org.example.notesapi.dto.NoteResponse;
+import org.example.notesapi.model.Note;
 import org.example.notesapi.service.NoteService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +28,11 @@ public class NoteController {
     @GetMapping
     public List<NoteResponse> getAllNotes() {
         return noteService.getAllNotesByUserId();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<NoteResponse> getNoteById(@PathVariable Long id) {
+        return noteService.getNoteById(id);
     }
 
 
