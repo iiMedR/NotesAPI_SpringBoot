@@ -40,4 +40,10 @@ public class NoteController {
         return noteService.updateNote(id, request);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<NoteResponse> deleteNoteById(@PathVariable Long id) {
+        noteService.deleteNoteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

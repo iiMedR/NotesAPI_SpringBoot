@@ -60,4 +60,9 @@ public class NoteService {
         note.setContent(request.content());
         return  ResponseEntity.ok(toResponse(note));
     }
+
+    public void deleteNoteById(Long id) {
+        Note note = findNoteById(id);
+        noteRepository.delete(note);
+    }
 }
