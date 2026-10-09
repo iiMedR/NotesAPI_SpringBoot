@@ -1,7 +1,9 @@
 package org.example.notesapi.service;
 
+import jakarta.transaction.Transactional;
 import org.example.notesapi.dto.CreateNoteRequest;
 import org.example.notesapi.dto.NoteResponse;
+import org.example.notesapi.dto.UpdateNoteRequest;
 import org.example.notesapi.exception.NoteDoesNotExistException;
 import org.example.notesapi.model.Note;
 import org.example.notesapi.repository.NoteRepository;
@@ -42,8 +44,20 @@ public class NoteService {
         return notes.stream().map(this::toResponse).toList();
     }
 
+    private Note findNoteById(Long id) {
+        return noteRepository.findByIdAndUserId(id, userService.getCurrentUser().getId()).orElseThrow(() -> new NoteDoesNotExistException(id));
+    }
+
     public ResponseEntity<NoteResponse> getNoteById(Long id) {
-        Note note = noteRepository.findByIdAndUserId(id, userService.getCurrentUser().getId()).orElseThrow(() -> new NoteDoesNotExistException(id));
+        Note note = findNoteById(id);
         return ResponseEntity.ok(toResponse(note));
+    }
+
+    @Transactional
+    public ResponseEntity<NoteResponse> updateNote(Long id, UpdateNoteRequest request) {
+        Note note = findNoteById(id);
+        note.setTitle(request.title());
+        note.setContent(request.content());
+        return  ResponseEntity.ok(toResponse(note));
     }
 }

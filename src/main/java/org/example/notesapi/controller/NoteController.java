@@ -3,7 +3,7 @@ package org.example.notesapi.controller;
 import jakarta.validation.Valid;
 import org.example.notesapi.dto.CreateNoteRequest;
 import org.example.notesapi.dto.NoteResponse;
-import org.example.notesapi.model.Note;
+import org.example.notesapi.dto.UpdateNoteRequest;
 import org.example.notesapi.service.NoteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +35,9 @@ public class NoteController {
         return noteService.getNoteById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<NoteResponse> updateNote(@PathVariable Long id, @Valid @RequestBody UpdateNoteRequest request) {
+        return noteService.updateNote(id, request);
+    }
 
 }
