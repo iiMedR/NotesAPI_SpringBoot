@@ -6,7 +6,9 @@ import org.example.notesapi.model.Note;
 import org.example.notesapi.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class NoteService {
@@ -31,5 +33,10 @@ public class NoteService {
         note.setUser(userService.getCurrentUser());
         noteRepository.save(note);
         return toResponse(note);
+    }
+
+    public List<NoteResponse> getAllNotesByUserId() {
+        List<Note> notes = noteRepository.findByUserId(userService.getCurrentUser().getId());
+        return notes.stream().map(this::toResponse).toList();
     }
 }
