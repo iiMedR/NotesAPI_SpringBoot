@@ -1,0 +1,35 @@
+package org.example.notesapi.service;
+
+import org.example.notesapi.dto.CreateNoteRequest;
+import org.example.notesapi.dto.NoteResponse;
+import org.example.notesapi.model.Note;
+import org.example.notesapi.repository.NoteRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+
+@Service
+public class NoteService {
+    NoteRepository noteRepository;
+    UserService userService;
+
+    public NoteService(NoteRepository noteRepository, UserService userService) {
+        this.noteRepository = noteRepository;
+        this.userService = userService;
+    }
+
+    private NoteResponse toResponse(Note note) {
+        Long userId = note.getUser() != null ? note.getUser().getId() : null;
+        return new NoteResponse(note.getId(), note.getTitle(), note.getContent(), note.getCreatedAt(), userId);
+    }
+
+    public NoteResponse createNote(CreateNoteRequest request) {
+        Note note = new Note();
+        note.setTitle(request.title());
+        note.setContent(request.content());
+        note.setCreatedAt(new Date());
+        note.setUser(userService.getCurrentUser());
+        noteRepository.save(note);
+        return toResponse(note);
+    }
+}
